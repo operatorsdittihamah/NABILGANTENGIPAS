@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Game IPAS HOTS Kelas 6</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #0b3d2e;
+        color: white;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .top-image {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 90px;
+        border-radius: 10px;
+    }
+
+    .container {
+        max-width: 750px;
+        margin: auto;
+        background: #145a44;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 60px;
+    }
+
+    h1 { text-align: center; }
+
+    .question {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .options label {
+        display: block;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    button {
+        background-color: #ffd700;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover { background-color: #ffcc00; }
+
+    .result {
+        text-align: center;
+        font-size: 18px;
+    }
+</style>
+</head>
+
+<body>
+
+<img src="nabil.jpeg" class="top-image" alt="Logo Sekolah">
+
+<div class="container">
+    <h1>🎮 MARI BERMAIN BERSAMA NABIL Game IPAS HOTS Kelas 6</h1>
+
+    <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <button onclick="nextQuestion()">Selanjutnya</button>
+    </div>
+
+    <div class="result" id="result" style="display:none;"></div>
+</div>
+
+<script>
+const questions = [
+{q:"Es batu mencair karena ...",options:["Melepaskan kalor","Menerima kalor","Suhu rendah","Udara dingin"],answer:1},
+{q:"Banjir sering terjadi karena ...",options:["Banyak pohon","Saluran tersumbat","Tanah subur","Curah hujan sedikit"],answer:1},
+{q:"Jika belalang berkurang maka katak ...",options:["Bertambah","Berkurang","Tetap","Punah"],answer:1},
+{q:"PLTS memanfaatkan energi ...",options:["Angin","Air","Matahari","Minyak"],answer:2},
+{q:"Hewan pemakan tumbuhan disebut ...",options:["Omnivora","Karnivora","Herbivora","Insektivora"],answer:2},
+{q:"Perubahan air menjadi uap disebut ...",options:["Mengembun","Mencair","Menguap","Membeku"],answer:2},
+{q:"Gaya yang menyebabkan benda jatuh adalah ...",options:["Magnet","Gesek","Gravitasi","Listrik"],answer:2},
+{q:"Alat penghemat listrik adalah ...",options:["Lampu pijar","AC lama","Lampu LED","Setrika"],answer:2},
+{q:"Akar pada tumbuhan berfungsi untuk ...",options:["Bernapas","Fotosintesis","Menyerap air","Menghasilkan biji"],answer:2},
+{q:"Energi listrik diubah menjadi cahaya pada ...",options:["Setrika","Kipas","Lampu","Radio"],answer:2},
+
+{q:"Contoh adaptasi tumbuhan kaktus adalah ...",options:["Daun lebar","Batang berair","Akar pendek","Bunga besar"],answer:1},
+{q:"Rantai makanan dimulai dari ...",options:["Karnivora","Produsen","Konsumen","Pengurai"],answer:1},
+{q:"Panas matahari sampai ke bumi melalui ...",options:["Konduksi","Radiasi","Konveksi","Isolasi"],answer:1},
+{q:"Alat pernapasan ikan adalah ...",options:["Paru-paru","Kulit","Insang","Trakea"],answer:2},
+{q:"Perubahan wujud gas ke cair disebut ...",options:["Menguap","Mencair","Mengembun","Membeku"],answer:2},
+{q:"Gaya gesek dapat menyebabkan benda ...",options:["Bergerak cepat","Diam","Melambat","Mengapung"],answer:2},
+{q:"Sumber energi terbesar di bumi adalah ...",options:["Angin","Air","Matahari","Minyak"],answer:2},
+{q:"Bahan isolator listrik adalah ...",options:["Besi","Tembaga","Plastik","Aluminium"],answer:2},
+{q:"Fungsi daun adalah ...",options:["Menyerap air","Fotosintesis","Menopang","Menyimpan cadangan"],answer:1},
+{q:"Perubahan kimia ditandai dengan ...",options:["Bisa kembali","Tidak berubah","Zat baru","Bentuk sama"],answer:2},
+
+{q:"Contoh penghematan air adalah ...",options:["Menyiram terus","Menutup kran","Mandi lama","Cuci berulang"],answer:1},
+{q:"Alat ukur suhu adalah ...",options:["Barometer","Termometer","Higrometer","Anemometer"],answer:1},
+{q:"Hewan yang hidup di dua alam disebut ...",options:["Mamalia","Reptil","Amfibi","Aves"],answer:2},
+{q:"Energi angin dimanfaatkan pada ...",options:["PLTA","PLTB","PLTS","PLTU"],answer:1},
+{q:"Bunyi merambat melalui ...",options:["Ruang hampa","Cahaya","Zat perantara","Magnet"],answer:2},
+{q:"Sampah organik berasal dari ...",options:["Plastik","Kaca","Sisa makhluk hidup","Logam"],answer:2},
+{q:"Kegiatan daur ulang bertujuan untuk ...",options:["Menambah sampah","Mengurangi limbah","Mencemari","Membakar"],answer:1},
+{q:"Perubahan bentuk energi kipas angin adalah ...",options:["Gerak ke listrik","Listrik ke gerak","Panas ke gerak","Cahaya ke panas"],answer:1},
+{q:"Alat peredam suara adalah ...",options:["Kaca","Besi","Busa","Plastik keras"],answer:2},
+{q:"Pelestarian hutan mencegah ...",options:["Hujan","Angin","Banjir","Cuaca"],answer:2},
+
+{q:"Hewan nokturnal aktif pada ...",options:["Pagi","Siang","Malam","Sore"],answer:2},
+{q:"Bumi berputar pada porosnya disebut ...",options:["Revolusi","Rotasi","Orbit","Gravitasi"],answer:1},
+{q:"Pencemaran udara disebabkan oleh ...",options:["Tanaman","Asap kendaraan","Air","Tanah"],answer:1},
+{q:"Gaya magnet dapat menarik benda dari ...",options:["Kayu","Plastik","Besi","Kertas"],answer:2},
+{q:"Kegiatan manusia yang merusak lingkungan adalah ...",options:["Menanam pohon","Reboisasi","Penebangan liar","Daur ulang"],answer:2},
+{q:"Contoh energi alternatif adalah ...",options:["Bensin","Solar","Biogas","Minyak"],answer:2},
+{q:"Pengaruh panas terhadap logam adalah ...",options:["Menyusut","Memuai","Mencair","Membeku"],answer:1},
+{q:"Alat pernapasan manusia adalah ...",options:["Paru-paru","Insang","Kulit","Trakea"],answer:0}
+];
+
+let current = 0;
+let score = 0;
+const point = 100 / questions.length;
+
+function loadQuestion() {
+    document.getElementById("question").innerText =
+        (current + 1) + ". " + questions[current].q;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    questions[current].options.forEach((opt, index) => {
+        optionsDiv.innerHTML += `
+            <label>
+                <input type="radio" name="option" value="${index}">
+                ${opt}
+            </label>`;
+    });
+}
+
+function nextQuestion() {
+    const selected = document.querySelector('input[name="option"]:checked');
+    if (!selected) { alert("Pilih jawaban terlebih dahulu!"); return; }
+
+    if (parseInt(selected.value) === questions[current].answer) {
+        score += point;
+    }
+
+    current++;
+    current < questions.length ? loadQuestion() : showResult();
+}
+
+function showResult() {
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerHTML = `
+        <h2>🎉 Kuis Selesai!</h2>
+        <p>Skor Anda: <strong>${Math.round(score)}</strong></p>
+        <p>Benar: ${Math.round(score / point)} dari ${questions.length}</p>`;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
